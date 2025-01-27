@@ -1,0 +1,27 @@
+.goto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.top_btn .logo{
+    width: 2rem;
+    height: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(128, 128, 128, 0.7);
+    background-color: white;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 1rem;
+    right: .5rem;
+    z-index: 999;
+    cursor: pointer;
+    transition: all 300ms ease-in;
+}
+.top_btn img:hover{
+    transform: scale(1.1);
+}
+@media (max-width:700px) {
+    .top_btn img{
+        width: 2rem;
+        height: 2rem ;
+    }
+}

@@ -1,0 +1,40 @@
+.f-wrapper{
+    background: var(--black);
+}
+.f-container{
+    justify-content: space-between;
+    border-top: 1px solid red;
+}
+.f-left{
+    gap: 1rem;
+}
+.f-menu{
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    font-weight: 500;
+}
+.f-bottom{
+    gap: 1.5rem;
+    margin: .5rem;
+    font-weight: 800;
+}
+@media (max-width:768px){
+    .f-container{
+        justify-content: center;
+    }
+    .f-container>div{
+        align-items: center;
+        text-align: center;
+    }
+    .f-bottom{
+        gap: 1rem;
+        padding: 0px;
+        font-weight: 700;
+    }
+    .sb_footer_copyrights{
+        margin-bottom: -25px;
+    }
+    .f-menu{
+        gap: 1rem;
+    }
+}

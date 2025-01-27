@@ -1,0 +1,44 @@
+[
+  {
+    "name": "John Doe",
+    "feedback": "The platform connected me to a blood donor within minutes. It was a lifesaver for my father during an emergency.",
+    "location": "Jakarta Garden City, Jakarta Timur, DKI Jakarta",
+    "rating": 5,
+    "image": "./customer1.jpg"
+  },
+  {
+    "name": "Jane Smith",
+    "feedback": "I was able to find a donor with the exact blood type I needed. The process was seamless and stress-free.",
+    "location": "Cinangka, Depok, Jawa Barat",
+    "rating": 4.5,
+    "image": "./customer2.jpg"
+  },
+  {
+    "name": "Michael Brown",
+    "feedback": "The website's donor database is extensive, and the response time was fantastic. Highly recommended!",
+    "location": "Ciracas, Serang, Banten",
+    "rating": 5,
+    "image": "./customer3.jpg"
+  },
+  {
+    "name": "Emily Davis",
+    "feedback": "A great platform for emergencies! I found a donor in just a few clicks. Very thankful for this service.",
+    "location": "Cakung, Jakarta Timur, DKI Jakarta",
+    "rating": 5,
+    "image": "./customer4.jpg"
+  },
+  {
+    "name": "Robert Wilson",
+    "feedback": "The website made it easy to contact donors nearby. The support team was also very helpful.",
+    "location": "Sawangan, Depok, Jawa Barat",
+    "rating": 4.8,
+    "image": "./customer5.jpg"
+  },
+  {
+    "name": "Sophia Martinez",
+    "feedback": "Reliable and efficient! I was able to secure a donor quickly during a critical moment.",
+    "location": "Ciracas, Serang, Banten",
+    "rating": 5,
+    "image": "./customer6.jpg"
+  }
+]
