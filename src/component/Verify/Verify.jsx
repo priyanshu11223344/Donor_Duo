@@ -3,19 +3,44 @@ import {FaUserAlt  } from "react-icons/fa";
 import './Verify.css';
 
 const Login = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted");
+  const [otp, setOtp] = useState('');
+  const userId = localStorage.getItem('userId');
+  // const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      const requestBody = { userId, otp };
+      console.log('Sending request:', requestBody); 
+      const response = await fetch("http://localhost:5000/api/donor/verifyotp", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody)
+      });
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+          // navigate("/FindDonor");
+          localStorage.removeItem('userId');
+          alert("OTP verified successfully");
+      } else {
+          alert("Invalid OTP");
+      }
+  };
+
+  const onChange = (e) => {
+      setOtp(e.target.value);
   };
 
   return (
     <div className="Login">
         <div className='blur-effect'/>
       <div className="wrapper">
-        <form >
+        <form onSubmit={handleSubmit} >
           <h1 className='primaryText'>OTP Verification</h1>
           <div className="input-box">
-            <input type="text" placeholder="Enter OTP" id="otp" name='otp' minLength={6} required />
+            <input type="text" placeholder="Enter OTP" id="otp" name='otp' minLength={6} required onChange={onChange}/>
             <FaUserAlt  className='logos'/>
           </div>
           
