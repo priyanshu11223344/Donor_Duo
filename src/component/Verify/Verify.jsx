@@ -1,7 +1,7 @@
 import React from 'react';
 import {FaUserAlt  } from "react-icons/fa";
 import './Verify.css';
-
+import { useState } from 'react';
 const Login = () => {
   const [otp, setOtp] = useState('');
   const userId = localStorage.getItem('userId');

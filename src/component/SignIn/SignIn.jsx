@@ -2,7 +2,7 @@ import React from 'react';
 import { HiLockClosed, HiMail } from "react-icons/hi";
 import { FaGoogle, FaFacebookF,FaUserAlt  } from "react-icons/fa";
 import './SignIn.css';
-
+import { useState } from 'react';
 const Login = () => {
   const [cred, setCred] = useState({ name: "", email: "", password: "" })
     // const navigate=useNavigate();

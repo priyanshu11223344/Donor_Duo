@@ -1,11 +1,13 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HiLockClosed, HiMail } from "react-icons/hi";
 import { FaGoogle, FaFacebookF } from "react-icons/fa";
 import './Login.css';
-const [cred,setCred]=useState({email:"",password:""})
+
 
 const Login = () => {
+  const [cred,setCred]=useState({email:"",password:""})
   const handlesubmit=async(e)=>{
     e.preventDefault();
     const response= await fetch("http://localhost:5000/api/login",{
