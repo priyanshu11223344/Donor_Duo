@@ -20,7 +20,7 @@ const Login = () => {
             <FaUserAlt  className='logos'/>
           </div>
           <div className="input-box">
-            <input type="text" placeholder="Enter Mail/Number" id="email" name="email" required/>
+            <input type="text" placeholder="Enter Mail" id="email" name="email" required/>
             <HiMail className='logos'/>
           </div>
           <div className="input-box">
