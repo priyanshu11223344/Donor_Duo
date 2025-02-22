@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './becomeDonor.css';
 
 const BecomeDonor = () => {
@@ -20,6 +20,9 @@ const BecomeDonor = () => {
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [medicalCertificateName, setMedicalCertificateName] = useState("No file chosen");
 
+  // Ref for the file input
+  const fileInputRef = useRef(null);
+
   // Handle profile photo change
   const handleProfilePhotoChange = (event) => {
     const file = event.target.files[0];
@@ -30,6 +33,11 @@ const BecomeDonor = () => {
       };
       reader.readAsDataURL(file); // Convert file to data URL
     }
+  };
+
+  // Handle click on profile photo to trigger file input
+  const handleProfilePhotoClick = () => {
+    fileInputRef.current.click(); // Trigger the file input
   };
 
   // Handle medical certificate change
@@ -55,13 +63,13 @@ const BecomeDonor = () => {
             <label htmlFor="profile-photo" className="becomeDonorLabel">Select Profile Photo</label>
             <div className="profile-photo-container">
               {profilePhoto ? (
-                <label htmlFor="profile-photo" className="profile-photo-preview">
+                <div className="profile-photo-preview" onClick={handleProfilePhotoClick}>
                   <img
                     src={profilePhoto}
                     alt="Profile Preview"
                     className="profile-photo-image"
                   />
-                </label>
+                </div>
               ) : (
                 <div className="custom-file-input">
                   <input
@@ -69,6 +77,8 @@ const BecomeDonor = () => {
                     id="profile-photo"
                     onChange={handleProfilePhotoChange}
                     accept="image/*"
+                    ref={fileInputRef}
+                    hidden={!!profilePhoto} // Hide when profilePhoto is set
                   />
                   <span>Choose File</span>
                 </div>
