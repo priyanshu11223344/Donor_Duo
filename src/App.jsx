@@ -8,6 +8,7 @@ import Login from "./component/Login/Login";
 import SignIn from "./component/SignIn/SignIn"
 import Verify from "./component/Verify/Verify"
 import BecomeDonor from "./component/BecomeDonor/becomeDonor"
+import FindDonor from "./component/FindDonors/FindDonor"
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +22,7 @@ function App() {
           <Route path="/SignIn" element={<SignIn/>}/>
           <Route path="/Verify" element={<Verify/>}/>
           <Route path="/becomeDonor" element={<BecomeDonor/>}/>
+          <Route path="/findDonor" element={<FindDonor/>}/>
         </Route>
       </Routes>
       <Footer/>
