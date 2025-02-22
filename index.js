@@ -9,6 +9,7 @@ app.use(cors());
 
 app.use(express.json()) // to enable json parsing of incoming http request.
 app.use("/api/donor",require("./routes/auth"))
+app.use("/api/donor",require("./routes/bank"))
 
 app.listen(port,()=>{
     console.log("server connected");
