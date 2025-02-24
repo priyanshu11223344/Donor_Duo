@@ -50,6 +50,19 @@ const BecomeDonor = () => {
     }
   };
 
+  // Handle form reset
+  const handleReset = () => {
+    setProfilePhoto(null); // Reset profile photo
+    setMedicalCertificateName("No file chosen"); // Reset medical certificate
+    fileInputRef.current.value = ""; // Clear file input
+    document.getElementById("name").value = ""; // Reset name field
+    document.getElementById("age").value = ""; // Reset age field
+    document.getElementById("blood-group").value = ""; // Reset blood group
+    document.getElementById("medical-condition").value = ""; // Reset medical condition
+    document.getElementById("city").value = ""; // Reset city field
+    document.getElementById("hospital").value = ""; // Reset hospital dropdown
+  };
+
   return (
     <div className="becomeDonorContainer">
       <div className="becomeDonorWrapper">
@@ -146,8 +159,11 @@ const BecomeDonor = () => {
             </select>
           </div>
 
-          {/* Submit Button */}
-          <button type="submit" className="becomeDonorButton">Submit</button>
+          {/* Submit and Reset Buttons */}
+          <div className="becomeDonorRow">
+            <button type="submit" className="becomeDonorButton">Submit</button>
+            <button type="button" className="becomeDonorButton resetButton" onClick={handleReset}>Reset</button>
+          </div>
         </form>
       </div>
       <div className="becomeDonorBlurEffect"></div>
