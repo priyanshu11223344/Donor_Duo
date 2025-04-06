@@ -1,4 +1,5 @@
-const mongoose=require("mongoose")
+const mongoose=require("mongoose");
+const Hospital = require("./Hospital");
 const {Schema}=mongoose;
 const PatientSchema= new Schema({
     name:{
@@ -25,6 +26,14 @@ const PatientSchema= new Schema({
     },
     certificate:{
       type:String
-    }
+    },
+    hospital: {
+      type: mongoose.Schema.Types.ObjectId,  // Use ObjectId to reference Hospital
+      ref: "Hospital",
+      required: true
+  }
 });
+
+
+
 module.exports=mongoose.model('Patient',PatientSchema)
