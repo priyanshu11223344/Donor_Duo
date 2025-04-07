@@ -8,6 +8,17 @@ const Hospital = require("../models/Hospital");
 dotenv.config();
 
 const router = express.Router();
+router.get("/hospitals", async (req, res) => {
+  try {
+    const hospitals = await Hospital.find({})
+      .populate("patients"); // This will populate full patient documents instead of just ObjectIds
+    res.status(200).json(hospitals);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 router.post("/newhosp",async(req,res)=>{
     try{
         const {name ,city}=req.body;
@@ -31,12 +42,11 @@ router.post("/newdonor", async (req, res) => {
         description,
         hospital: hospitalId, // this is a string name
       } = req.body;
-  
-      let hospital = await Hospital.findOne({ name: hospitalId, city });
+      // console.log(hospital)
+      let hospital = await Hospital.findOne({ _id: hospitalId });
   
       if (!hospital) {
-        hospital = new Hospital({ name: hospitalId, city, totalCand: 0 });
-        await hospital.save();
+        console.log("not found")
       }
   
       const donor = new Bank({
