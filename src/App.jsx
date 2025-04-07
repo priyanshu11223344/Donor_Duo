@@ -9,7 +9,7 @@ import SignIn from "./component/SignIn/SignIn"
 import Verify from "./component/Verify/Verify"
 import BecomeDonor from "./component/BecomeDonor/becomeDonor"
 import FindDonor from "./component/FindDonors/FindDonor"
-
+import DonorState from "./Context/DonorData/DonorState";
 import Contact from "./component/Contact/Contact";
 
 function App() {
