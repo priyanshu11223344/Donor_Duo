@@ -112,6 +112,7 @@
   .exploreButton {
     padding: 0.8rem 1.5rem;
     background: var(--blue-gradient);
+    margin-right: 5px;
     color: #fff;
     border: none;
     border-radius: 40px;
