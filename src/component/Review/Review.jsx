@@ -5,7 +5,7 @@ import 'swiper/css';
 import data from '../../utils/slider.json';
 import { sliderSettings } from '../../utils/common';
 
-const Residencies = () => {
+const Review = () => {
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating); // Number of full stars
     const halfStar = rating % 1 !== 0; // Check for half star
@@ -49,7 +49,7 @@ const Residencies = () => {
   );
 };
 
-export default Residencies;
+export default Review;
 
 const SliderButtons = () => {
   const swiper = useSwiper();
