@@ -32,12 +32,9 @@ router.post("/newdonor", async (req, res) => {
         hospital: hospitalId, // this is a string name
       } = req.body;
   
-      let hospital = await Hospital.findOne({ name: hospitalId, city });
+      let hospital = await Hospital.findOne({ _id: hospitalId});
   
-      if (!hospital) {
-        hospital = new Hospital({ name: hospitalId, city, totalCand: 0 });
-        await hospital.save();
-      }
+     
   
       const donor = new Bank({
         name,
@@ -63,50 +60,8 @@ router.post("/newdonor", async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   });
-router.post("/register-patient", async (req, res) => {
-  try {
-    const {
-      name,
-      age,
-      city,
-      bloodGroup,
-      description,
-      image,
-      certificate,
-      hospitalId // this should be the _id of the Hospital (not the name)
-    } = req.body;
 
-    // Check if the hospital exists
-    const hospital = await Hospital.findById(hospitalId);
-    if (!hospital) {
-      return res.status(404).json({ message: "Hospital not found" });
-    }
-
-    // Create a new patient linked to the hospital
-    const newPatient = new Bank({
-      name,
-      age,
-      city,
-      bloodGroup,
-      description,
-      image,
-      certificate,
-      hospital: hospital._id
-    });
-
-    await newPatient.save();
-
-    // Push patient to hospital's patients list and increment totalCand
-    hospital.patients.push(newPatient._id);
-    hospital.totalCand += 1;
-    await hospital.save();
-
-    res.status(201).json({ success: true, patient: newPatient, hospital });
-  } catch (error) {
-    console.error("Error in /register-patient:", error.message);
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
+  
 
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
@@ -169,6 +124,4 @@ router.post("/selectdonor", async (req, res) => {
         res.status(500).json({ success: false, message: "Internal server error", error: error.message });
     }
 });
-
-
 module.exports = router;
