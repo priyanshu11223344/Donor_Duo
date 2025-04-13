@@ -10,6 +10,8 @@ import Verify from "./component/Verify/Verify"
 import BecomeDonor from "./component/BecomeDonor/becomeDonor"
 import FindDonor from "./component/FindDonors/FindDonor"
 import DonorState from "./Context/DonorData/DonorState";
+import Contact from "./component/Contact/Contact";
+
 function App() {
   return (
     <DonorState>
@@ -25,6 +27,7 @@ function App() {
           <Route path="/Verify" element={<Verify/>}/>
           <Route path="/becomeDonor" element={<BecomeDonor/>}/>
           <Route path="/findDonor" element={<FindDonor/>}/>
+          <Route path="/Contact" element={<Contact/>} />
         </Route>
       </Routes>
       <Footer/>

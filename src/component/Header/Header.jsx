@@ -21,7 +21,7 @@ const Header = () => {
               <a href="/findDonor">Find Donor</a>
               <a href="/becomeDonor">Become Donor</a>
               <a href="/LogIn">Login</a>
-              <button className="button"><a href="">Contact</a></button>
+              <button className="button"><a href="/Contact">Contact</a></button>
             </div>
           </OutsideClickHandler>
           <div className="menu-icon" onClick={()=>setMenuOpened((prev)=>!prev)}>
