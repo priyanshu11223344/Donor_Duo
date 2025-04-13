@@ -2,29 +2,55 @@ import React from 'react';
 import { HiLockClosed, HiMail } from "react-icons/hi";
 import { FaGoogle, FaFacebookF,FaUserAlt  } from "react-icons/fa";
 import './SignIn.css';
-
-const Login = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted");
-  };
-
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+const SignIn = () => {
+  const [cred, setCred] = useState({ name: "", email: "", password: "" })
+  const navigate=useNavigate();
+  const handlesubmit = async(e) => {
+      e.preventDefault();
+      const {name,email,password}=cred;
+      const response= await fetch("http://localhost:5000/api/donor/newuser",{
+          method:"POST",
+          headers:{
+              "Content-Type":"application/json",
+          },
+          body:JSON.stringify({name,email,password})
+      });
+      const json= await response.json();
+      console.log(json);
+      if(json.success){
+      localStorage.setItem("token",json.authtoken)
+      localStorage.setItem("userId",json.userId)
+         navigate("/Verify");
+          console.log(json.authtoken);
+          alert("Verify via otp","success")
+      }
+      else{
+          alert("Invalid credentials","danger");
+      }
+      
+      
+  }
+  const onchange = (e) => {
+      setCred({...cred,[e.target.name]:e.target.value})
+  }
   return (
     <div className="Login">
         <div className='blur-effect'/>
       <div className="wrapper">
-        <form >
+        <form onSubmit={handlesubmit}>
           <h1 className='primaryText'>Sign In</h1>
           <div className="input-box">
-          <input type="text" placeholder="Username" id="name" name='name' minLength={3} required />
+          <input type="text" placeholder="Username" id="name" name='name' onChange={onchange} minLength={3} required  />
             <FaUserAlt  className='logos'/>
           </div>
           <div className="input-box">
-            <input type="text" placeholder="Enter Mail/Number" id="email" name="email" required/>
+            <input type="text" placeholder="Enter Mail/Number" id="email" name="email" onChange={onchange} required/>
             <HiMail className='logos'/>
           </div>
           <div className="input-box">
-            <input type="password" placeholder="Password" id="password" name="password" required/>
+            <input type="password" placeholder="Password" id="password" name="password" onChange={onchange} required/>
             <HiLockClosed className='logos'/>
           </div>
           <div className="remember-forget">
@@ -55,4 +81,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignIn;
