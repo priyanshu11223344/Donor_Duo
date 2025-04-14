@@ -1,8 +1,46 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import './becomeDonor.css';
+import DonorContext from '../../Context/DonorData/DonorContext';
+import { useLocation } from 'react-router-dom';
+import app from "../../firebase"
+import{getDownloadURL, getStorage,ref, uploadBytes}from "firebase/storage"
 
 const BecomeDonor = () => {
   // Random hospital names for the dropdown
+  const { hosp_id, addpatient } = useContext(DonorContext);
+  const [uploading,setuploading]=useState(false);
+  const [data, setdata] = useState({ name: "", image: "", age: "", bloodGroup: "", city: "", certificate: "", description: "", hospital_id: hosp_id })
+  const handlechange = (event) => {
+    setdata({ ...data, [event.target.name]: event.target.value })
+  }
+
+  const handlesubmit = (e) => {
+    e.preventDefault();
+    console.log("id is", data.hospital_id)
+    if (!data.name || !data.age) {
+      alert("please fill the required details");
+      return;
+    }
+    addpatient(data.name, data.image, data.age, data.bloodGroup, data.city, data.certificate, data.description, data.hospital_id)
+
+  }
+  const filechange=async(e)=>{
+    const file=e.target.files[0];
+    setuploading(true);
+    console.log(file);
+    if(file){
+        const storage=getStorage(app);
+        const storageRef=ref(storage,"files/"+file.name)
+        await uploadBytes(storageRef,file);
+        const downloadurl=await getDownloadURL(storageRef);
+        console.log(downloadurl);
+        setuploading(false);
+        setdata(prevnote=>({
+            ...prevnote,image:downloadurl
+        }))
+    }
+  }
+  console.log(hosp_id);
   const hospitals = [
     "City General Hospital",
     "Green Valley Medical Center",
@@ -24,16 +62,7 @@ const BecomeDonor = () => {
   const fileInputRef = useRef(null);
 
   // Handle profile photo change
-  const handleProfilePhotoChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setProfilePhoto(e.target.result); // Set the image URL
-      };
-      reader.readAsDataURL(file); // Convert file to data URL
-    }
-  };
+  
 
   // Handle click on profile photo to trigger file input
   const handleProfilePhotoClick = () => {
@@ -51,6 +80,7 @@ const BecomeDonor = () => {
   };
 
   // Handle form reset
+
   const handleReset = () => {
     setProfilePhoto(null); // Reset profile photo
     setMedicalCertificateName("No file chosen"); // Reset medical certificate
@@ -70,7 +100,7 @@ const BecomeDonor = () => {
         <p className="becomeDonorSubheading" style={{ marginBottom: '2rem', textAlign: 'center' }}>
           Please provide the necessary information to register as a donor.
         </p>
-        <form className="becomeDonorForm">
+        <form className="becomeDonorForm" onSubmit={handlesubmit}>
           {/* Profile Photo Upload */}
           <div className="becomeDonorInputBox">
             <label htmlFor="profile-photo" className="becomeDonorLabel">Select Profile Photo</label>
@@ -88,7 +118,7 @@ const BecomeDonor = () => {
                   <input
                     type="file"
                     id="profile-photo"
-                    onChange={handleProfilePhotoChange}
+                    onChange={filechange}
                     accept="image/*"
                     ref={fileInputRef}
                     hidden={!!profilePhoto} // Hide when profilePhoto is set
@@ -102,37 +132,44 @@ const BecomeDonor = () => {
           {/* Name Field */}
           <div className="becomeDonorInputBox">
             <label htmlFor="name" className="becomeDonorLabel">Enter Name of Donor</label>
-            <input type="text" id="name" placeholder="Name" />
+            <input type="text" id="name" placeholder="Name" name="name" onChange={handlechange} required />
           </div>
 
           {/* Age and Blood Group in the same line */}
           <div className="becomeDonorRow">
             <div className="becomeDonorInputBox" style={{ flex: 1, marginRight: '10px' }}>
               <label htmlFor="age" className="becomeDonorLabel">Age of Donor</label>
-              <input type="text" id="age" placeholder="Age" />
+              <input type="text" id="age" placeholder="Age" name="age" onChange={handlechange} required />
             </div>
             <div className="becomeDonorInputBox" style={{ flex: 1 }}>
               <label htmlFor="blood-group" className="becomeDonorLabel">Enter Blood Group</label>
-              <select id="blood-group" className="becomeDonorDropdown">
+              <select
+                name="bloodGroup"
+                value={data.bloodGroup}
+                onChange={handlechange}
+                id="blood-group"
+                className='becomeDonorDropdown'
+              >
                 <option value="">Select Blood Group</option>
-                {bloodGroups.map((group, index) => (
-                  <option key={index} value={group}>{group}</option>
+                {bloodGroups.map((group) => (
+                  <option key={group} value={group}>{group}</option>
                 ))}
               </select>
+
             </div>
           </div>
 
           {/* Medical Condition Field */}
           <div className="becomeDonorInputBox">
-            <label htmlFor="medical-condition" className="becomeDonorLabel">Describe Medical Condition (if any)</label>
-            <input type="text" id="medical-condition" placeholder="Describe" />
+            <label htmlFor="medical-condition" className="becomeDonorLabel" >Describe Medical Condition (if any)</label>
+            <input type="text" id="medical-condition" placeholder="Describe" name="description" onChange={handlechange} />
           </div>
 
           {/* City and Choose File in the same line */}
           <div className="becomeDonorRow">
             <div className="becomeDonorInputBox" style={{ flex: 1, marginRight: '10px' }}>
               <label htmlFor="city" className="becomeDonorLabel">Preferred City</label>
-              <input type="text" id="city" placeholder="City" />
+              <input type="text" id="city" placeholder="City" name="city" onChange={handlechange} />
             </div>
             <div className="becomeDonorInputBox" style={{ flex: 1 }}>
               <label htmlFor="medical-certificate" className="becomeDonorLabel">Select Your Medical Certificate</label>
@@ -161,7 +198,7 @@ const BecomeDonor = () => {
 
           {/* Submit and Reset Buttons */}
           <div className="becomeDonorRow">
-            <button type="submit" className="becomeDonorButton">Submit</button>
+            <button type="submit" disabled={uploading} className="becomeDonorButton">Submit</button>
             <button type="button" className="becomeDonorButton resetButton" onClick={handleReset}>Reset</button>
           </div>
         </form>
