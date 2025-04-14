@@ -214,6 +214,10 @@
       grid-template-columns: 1fr;
     }
   }
+  .patientProfilePhoto{
+    height: 100px;
+    width:100px
+  }
   /* .hospitalCardsContainer, .patientsContainer {
     display: flex;
     flex-direction: column;

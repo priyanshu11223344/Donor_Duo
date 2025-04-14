@@ -1,24 +1,27 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './FindDonor.css';
 import DonorContext from '../../Context/DonorData/DonorContext';
-
+import { useNavigate } from 'react-router-dom';
+// import customerpng from "./customer1.jpg"
 const FindDonor = () => {
-  const { getalldata, data } = useContext(DonorContext);
+  const { getalldata, data, hosp_id, sethosp_id } = useContext(DonorContext);
   const [selectedHospital, setSelectedHospital] = useState(null);
   const [searchCity, setSearchCity] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [showDonors, setShowDonors] = useState(false);
-
+  const navigate = useNavigate()
   useEffect(() => {
     getalldata();
   }, []);
 
   // Process hospital data
   const hospitalMap = {};
+  // console.log(data)
   data.forEach((donor) => {
-    const { name, city, patients = [] } = donor;
+    const {_id, name, city, patients = [] } = donor;
     if (!hospitalMap[name]) {
       hospitalMap[name] = {
+        _id,
         city,
         totalPatients: 0,
         patientsList: [],
@@ -38,17 +41,20 @@ const FindDonor = () => {
       const matchesSearch = info.city.toLowerCase().includes(searchCity.toLowerCase());
       return matchesCity && matchesSearch;
     });
-
+  // const get_hosp_id=(id)=>{
+  //  sethosp_id(id)
+  //  console.log(hosp_id)
+  // }
   return (
     <div className="findDonorContainer">
       <div className="blur-effect"></div>
       <div className="findDonorWrapper">
         <h1 className="findDonorHeading">Hospital Directory</h1>
         <p className="findDonorSubheading">Click on a hospital to explore its patients.</p>
-        
+
         {/* Search and filter section */}
         <div className="filtersSection">
-          
+
           <select
             value={selectedCity}
             onChange={(e) => {
@@ -70,7 +76,7 @@ const FindDonor = () => {
         {!selectedHospital ? (
           <div className="hospitalsContainer">
             <h3 className="sectionHeading">Available Hospitals</h3>
-            
+
             <div className="hospitalCardsContainer">
               {hospitals.length > 0 ? (
                 hospitals.map(([hospitalName, info]) => (
@@ -92,8 +98,15 @@ const FindDonor = () => {
                       >
                         Explore Donors
                       </button>
-                      <button className="exploreButton">
-                        <a href="/becomeDonor">Register Donor</a>
+                      <button
+                        className="exploreButton"
+                        onClick={() => {
+                          sethosp_id(info._id); // for global use if needed
+                          // console.log(hosp_id)
+                          navigate('/becomeDonor');
+                        }}
+                      >
+                        Register Donor
                       </button>
                     </div>
                   </div>
@@ -109,28 +122,31 @@ const FindDonor = () => {
               <h3 className="sectionHeading">
                 Patients in {selectedHospital.name}, {selectedHospital.city}
               </h3>
-              <button 
-                className="backButton" 
+              <button
+                className="backButton"
                 onClick={() => setSelectedHospital(null)}
               >
                 Back to Hospitals
               </button>
             </div>
-            
+
             <div className="patientCardsContainer">
               {selectedHospital.patientsList.length > 0 ? (
                 selectedHospital.patientsList.map((patient, idx) => (
                   <div key={`${patient.name}-${idx}`} className="patientCard">
                     <img
-                      src="./customer1.jpg"
+                      // src="./customer1.jpg"
+                      src={patient.image ? patient.image:"./customer1.jpg"}
                       alt={patient.name}
                       className="patientProfilePhoto"
                     />
                     <div className="patientInfo">
                       <h3 className="patientName">{patient.name}</h3>
                       <p className="patientDetail">Age: {patient.age}</p>
-                      <p className="patientDetail">Condition: {patient.condition}</p>
+                      <p className="patientDetail">Condition: {patient.description}</p>
                       <p className="patientStatus available">Available Now</p>
+                      <p className="patientDetail">City:{patient.city}</p>
+                      <p className="patientDetail">BloodGroup:{patient.bloodGroup}</p>
                     </div>
                     <button className="contactButton">Request Help</button>
                   </div>
