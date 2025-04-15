@@ -21,6 +21,7 @@ var transporter = nodemailer.createTransport({
       pass: process.env.USER_PASSWORD
   }
 });
+
 // ROUTE 1: create a user using postman : no login required 
 // "/api/auth/newuser"
 router.post("/newuser",[
@@ -147,7 +148,7 @@ router.post("/verifyotp",async(req,res)=>{
                  throw Error("the otp is not valid, enter correct otp");
                }
                else{
-                await User.updateOne({_id:userId},{verified:true});      // the verified was false initally , if the otp is correct set it true.
+                await User.updateOne({_id:userId},{verified:true});      // the verified was false initially , if the otp is correct set it true.
                 await Otp.deleteMany({userId});
                 res.status(201).json("user verified successfully")
                }
@@ -164,7 +165,7 @@ router.post("/verifyotp",async(req,res)=>{
 /// Route 3- login---
 
 router.post("/login",[
- body("email","enter a valid email").isEmail(),  // check user throgh email and password
+ body("email","enter a valid email").isEmail(),  // check user through email and password
  body('password',"enter password").exists(),
 ],async(req, res) => {
      // Finds the validation errors in this request and wraps them in an object with handy functions
@@ -176,8 +177,6 @@ router.post("/login",[
    try{
      let user= await User.findOne({email})
      let success=false;
-     
-     
      if(!user){
        success=false;
        return res.status(400).send({error:"Please login with valid credentials"})
@@ -190,8 +189,6 @@ router.post("/login",[
      if (!user.verified) {
        return res.status(400).json({ success, error: "Please complete your verification" });
      }
-
-
      const data={
        user:{
          id:user.id
@@ -219,7 +216,7 @@ router.post("/getuser",fetchuser,async(req, res) => {
    res.status(500).send("Internal server error")
  }
  })
-    
+ 
 
 
 module.exports=router
