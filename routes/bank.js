@@ -11,6 +11,10 @@ const router = express.Router();
 router.post("/newhosp",async(req,res)=>{
     try{
         const {name ,city}=req.body;
+        const a =  await Hospital.findOne({name})
+        if(a){
+          return res.status(400).json({ message: "Hospital with this name already exists." });
+        }
         const hosp=new Hospital({name,city})
         hosp.save();
         res.status(200).json(hosp);
