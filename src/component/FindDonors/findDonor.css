@@ -142,67 +142,7 @@
     transform: scale(1.05);
   }
   
-  .donorCardsContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
   
-  .donorCard {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 1.5rem;
-    text-align: center;
-  }
-  
-  .donorProfilePhoto {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 1rem;
-  }
-  
-  .donorName {
-    font-size: 24px;
-    margin-bottom: 0.5rem;
-  }
-  
-  .donorBloodGroup,
-  .donorCity,
-  .donorHospital {
-    font-size: 16px;
-    margin-bottom: 0.5rem;
-  }
-  
-  .donorAvailability {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-  
-  .donorAvailability.available {
-    color: #4caf50; /* Green for available */
-  }
-  
-  .donorAvailability.notAvailable {
-    color: #f44336; /* Red for not available */
-  }
-  
-  .contactButton {
-    padding: 0.8rem 1.5rem;
-    background: var(--blue-gradient);
-    color: #fff;
-    border: none;
-    border-radius: 40px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform 300ms ease-in;
-  }
-  
-  .contactButton:hover {
-    transform: scale(1.05);
-  }
   
   @media (max-width: 768px) {
     .filtersSection {
@@ -218,35 +158,103 @@
     height: 100px;
     width:100px
   }
-  /* .hospitalCardsContainer, .patientsContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  /* Add these styles to your existing FindDonor.css */
+
+.patientCardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.patientCard {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 300ms ease-in;
+  border: 1px solid rgba(255, 62, 62, 0.3);
+}
+
+.patientCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 62, 62, 0.2);
+}
+
+.patientProfilePhoto {
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 2px solid #ff3e3e;
+}
+
+.patientInfo {
+  margin-bottom: 1rem;
+}
+
+.patientName {
+  font-size: 20px;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.patientDetail {
+  font-size: 16px;
+  margin: 0.25rem 0;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.patientStatus {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  padding: 0.3rem 0.6rem;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.patientStatus.available {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+}
+
+.contactButton {
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(90deg, #ff3e3e, #ff6b6b);
+  color: #fff;
+  border: none;
+  border-radius: 40px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 300ms ease-in;
+  margin-top: 0.5rem;
+}
+
+.contactButton:hover {
+  background: linear-gradient(90deg, #ff6b6b, #ff3e3e);
+  transform: scale(1.05);
+}
+
+/* Blood group specific styling */
+.patientDetail[data-bloodgroup]::before {
+  content: "Blood Group: ";
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .patientCardsContainer {
+    grid-template-columns: 1fr;
   }
   
-  .hospitalCard, .patientCard {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  .patientCard {
+    padding: 1rem;
   }
   
-  button {
-    margin-top: 10px;
-    padding: 8px 16px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+  .patientProfilePhoto {
+    width: 80px;
+    height: 80px;
   }
-  
-  button:hover {
-    background: #0056b3;
-  }
-  
-  .backButton {
-    align-self: flex-start;
-  } */
-  
-  
+}

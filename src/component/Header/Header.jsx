@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './Header.css'
 import {BiMenuAltRight} from 'react-icons/bi'
+import { MdSpaceDashboard } from "react-icons/md";
 import OutsideClickHandler from 'react-outside-click-handler'
 const Header = () => {
   const [menuOpened, setMenuOpened]=useState(false);
@@ -18,10 +19,12 @@ const Header = () => {
           }}>
             <div className="flexCenter h-menu" style={getMenuStyles(menuOpened)}>
               <a href="/">Home</a>
-              <a href="/findDonor">Find Donor</a>
-              <a href="/becomeDonor">Become Donor</a>
+              <a href="/findDonor">Find/Become Donor</a>
+              <a href="/RegisterHospital">Register Hospital</a>
               <a href="/LogIn">Login</a>
-              <button className="button"><a href="/Contact">Contact</a></button>
+              <a href="/Dashboard" className="dashboard-icon">
+                <MdSpaceDashboard size={24} />
+              </a>
             </div>
           </OutsideClickHandler>
           <div className="menu-icon" onClick={()=>setMenuOpened((prev)=>!prev)}>

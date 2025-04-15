@@ -20,6 +20,7 @@
     "react-pdf": "^9.2.1",
     "react-router-dom": "6.10.0",
     "realestate": "file:",
+    "recharts": "^2.15.2",
     "swiper": "^9.1.1"
   },
   "devDependencies": {
