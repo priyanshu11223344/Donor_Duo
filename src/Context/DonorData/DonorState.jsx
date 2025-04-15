@@ -43,15 +43,27 @@ const DonorState = (props) => {
         
             const json = await response.json();
             console.log(json);
-
-
+    }
+    const addhospital=async(name,city)=>{
+        const url=`${host}/api/donor/newhosp`
+        const response=await fetch(url,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+            },
+            body:JSON.stringify({name,city})
+        });
+        const json=await response.json();
+        console.log(json);
+        console.log(name,city)
+        // setdata([...data,json])
     }
     
    
     
     
   return (
-    <DonorContext.Provider value={{getalldata,data,hosp_id,sethosp_id,addpatient}}>
+    <DonorContext.Provider value={{getalldata,data,hosp_id,sethosp_id,addpatient,addhospital}}>
         {props.children}
     </DonorContext.Provider>
   )

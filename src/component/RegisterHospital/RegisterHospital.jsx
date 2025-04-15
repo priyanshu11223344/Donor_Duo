@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import './RegisterHospital.css';
 import { useNavigate } from 'react-router-dom';
-
+import { useContext } from 'react';
+import DonorContext from '../../Context/DonorData/DonorContext';
 const RegisterHospital = () => {
   const navigate = useNavigate();
+  const {addhospital}=useContext(DonorContext)
+  const[hospdata,sethospdata]=useState({name:"",city:""});
   const [formData, setFormData] = useState({
     hospitalName: '',
     address: '',
@@ -31,13 +34,9 @@ const RegisterHospital = () => {
     'Ambulance Services'
   ];
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
+  const handleChange = (event) => {
+    sethospdata({ ...hospdata, [event.target.name]: event.target.value })
+  }
 
   const handleFacilitiesChange = (facility) => {
     setFormData(prev => {
@@ -50,7 +49,10 @@ const RegisterHospital = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    if(!hospdata.name || !hospdata.city){
+      alert("Please fill all the details")
+    }
+    addhospital(hospdata.name,hospdata.city)
   };
 
   return (
@@ -67,10 +69,11 @@ const RegisterHospital = () => {
                 <label>Hospital Name</label>
                 <input
                   type="text"
-                  name="hospitalName"
-                  value={formData.hospitalName}
+                  name="name"
+                 
                   onChange={handleChange}
                   placeholder="Enter hospital name"
+                  required
                 />
               </div>
               <div className="form-group">
@@ -78,7 +81,7 @@ const RegisterHospital = () => {
                 <input
                   type="text"
                   name="bloodBankLicense"
-                  value={formData.bloodBankLicense}
+                 
                   onChange={handleChange}
                   placeholder="Enter license number"
                 />
@@ -90,7 +93,7 @@ const RegisterHospital = () => {
               <input
                 type="text"
                 name="address"
-                value={formData.address}
+               
                 onChange={handleChange}
                 placeholder="Enter full address"
               />
@@ -102,9 +105,10 @@ const RegisterHospital = () => {
                 <input
                   type="text"
                   name="city"
-                  value={formData.city}
+               
                   onChange={handleChange}
                   placeholder="Enter city"
+                  required
                 />
               </div>
               <div className="form-group">
@@ -112,7 +116,7 @@ const RegisterHospital = () => {
                 <input
                   type="text"
                   name="state"
-                  value={formData.state}
+                 
                   onChange={handleChange}
                   placeholder="Enter state"
                 />
@@ -122,7 +126,7 @@ const RegisterHospital = () => {
                 <input
                   type="text"
                   name="country"
-                  value={formData.country}
+              
                   onChange={handleChange}
                   placeholder="Enter country"
                 />
@@ -132,7 +136,7 @@ const RegisterHospital = () => {
                 <input
                   type="text"
                   name="pincode"
-                  value={formData.pincode}
+           
                   onChange={handleChange}
                   placeholder="Enter pincode"
                 />
@@ -148,7 +152,7 @@ const RegisterHospital = () => {
                 <input
                   type="tel"
                   name="contactNumber"
-                  value={formData.contactNumber}
+            
                   onChange={handleChange}
                   placeholder="Enter phone number"
                 />
@@ -158,7 +162,7 @@ const RegisterHospital = () => {
                 <input
                   type="tel"
                   name="emergencyContact"
-                  value={formData.emergencyContact}
+                 
                   onChange={handleChange}
                   placeholder="Enter emergency contact"
                 />
@@ -170,7 +174,7 @@ const RegisterHospital = () => {
               <input
                 type="email"
                 name="email"
-                value={formData.email}
+          
                 onChange={handleChange}
                 placeholder="Enter official email"
               />
@@ -182,7 +186,7 @@ const RegisterHospital = () => {
                 <input
                   type="password"
                   name="password"
-                  value={formData.password}
+                 
                   onChange={handleChange}
                   placeholder="Create password"
                 />
@@ -192,7 +196,7 @@ const RegisterHospital = () => {
                 <input
                   type="password"
                   name="confirmPassword"
-                  value={formData.confirmPassword}
+               
                   onChange={handleChange}
                   placeholder="Confirm password"
                 />
@@ -207,7 +211,7 @@ const RegisterHospital = () => {
               <input
                 type="text"
                 name="directorName"
-                value={formData.directorName}
+                
                 onChange={handleChange}
                 placeholder="Enter director's name"
               />
