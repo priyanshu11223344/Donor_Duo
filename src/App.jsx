@@ -12,6 +12,7 @@ import FindDonor from "./component/FindDonors/FindDonor"
 import DonorState from "./Context/DonorData/DonorState";
 import Contact from "./component/Contact/Contact";
 import DashBoard from "./component/DashBoard/DashBoard"
+import RegisterHospital from "./component/RegisterHospital/RegisterHospital"
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/findDonor" element={<FindDonor/>}/>
           <Route path="/Contact" element={<Contact/>} />
           <Route path="/DashBoard" element={<DashBoard />} />
+          <Route path="/RegisterHospital" element={<RegisterHospital />} />
         </Route>
       </Routes>
       <Footer/>

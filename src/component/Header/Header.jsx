@@ -19,8 +19,8 @@ const Header = () => {
           }}>
             <div className="flexCenter h-menu" style={getMenuStyles(menuOpened)}>
               <a href="/">Home</a>
-              <a href="/findDonor">Find Donor</a>
-              <a href="/becomeDonor">Become Donor</a>
+              <a href="/findDonor">Find/Become Donor</a>
+              <a href="/RegisterHospital">Register Hospital</a>
               <a href="/LogIn">Login</a>
               <a href="/Dashboard" className="dashboard-icon">
                 <MdSpaceDashboard size={24} />
