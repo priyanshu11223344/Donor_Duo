@@ -30,7 +30,7 @@
     color: #ff0000; /* Or your primary brand color */
     transform: scale(1.05);
   }
-@media (max-width:768px) {
+@media (max-width:795px) {
     .menu-icon{
         display: block;
     }
@@ -49,4 +49,8 @@
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
         z-index: 99;
     }
+    .dashboard-icon {
+        color: #000000;
+        margin-left: -15px;
+      }
 }
