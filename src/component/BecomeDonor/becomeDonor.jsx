@@ -3,44 +3,50 @@ import './becomeDonor.css';
 import DonorContext from '../../Context/DonorData/DonorContext';
 import { useLocation } from 'react-router-dom';
 import app from "../../firebase"
-import{getDownloadURL, getStorage,ref, uploadBytes}from "firebase/storage"
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 
 const BecomeDonor = () => {
   // Random hospital names for the dropdown
   const { hosp_id, addpatient } = useContext(DonorContext);
-  const [uploading,setuploading]=useState(false);
+  const [uploading, setuploading] = useState(false);
   const [data, setdata] = useState({ name: "", image: "", age: "", bloodGroup: "", city: "", certificate: "", description: "", hospital_id: hosp_id })
   const handlechange = (event) => {
     setdata({ ...data, [event.target.name]: event.target.value })
   }
-
+  
   const handlesubmit = (e) => {
     e.preventDefault();
-    console.log("id is", data.hospital_id)
+    // console.log("id is", data.hospital_id)
     if (!data.name || !data.age) {
       alert("please fill the required details");
       return;
     }
     addpatient(data.name, data.image, data.age, data.bloodGroup, data.city, data.certificate, data.description, data.hospital_id)
+    alert(`Successfully entry created, move to the ${hosp_id}`);
+
 
   }
-  const filechange=async(e)=>{
-    const file=e.target.files[0];
+  const filechange = async (e,field) => {
+    const file = e.target.files[0];
     setuploading(true);
-    console.log(file);
-    if(file){
-        const storage=getStorage(app);
-        const storageRef=ref(storage,"files/"+file.name)
-        await uploadBytes(storageRef,file);
-        const downloadurl=await getDownloadURL(storageRef);
-        console.log(downloadurl);
-        setuploading(false);
-        setdata(prevnote=>({
-            ...prevnote,image:downloadurl
-        }))
+    // console.log(file);
+    if (file) {
+      const storage = getStorage(app);
+      const storageRef = ref(storage, "files/" + file.name)
+      await uploadBytes(storageRef, file);
+      const downloadurl = await getDownloadURL(storageRef);
+      // console.log(downloadurl);
+      setuploading(false);
+      setdata(prevnote => ({
+        ...prevnote, [field]: downloadurl
+      }))
+      if (field === "image") {
+        setProfilePhoto(URL.createObjectURL(file));
+      }
     }
+
   }
-  console.log(hosp_id);
+  // console.log(hosp_id);
   const hospitals = [
     "City General Hospital",
     "Green Valley Medical Center",
@@ -62,7 +68,7 @@ const BecomeDonor = () => {
   const fileInputRef = useRef(null);
 
   // Handle profile photo change
-  
+
 
   // Handle click on profile photo to trigger file input
   const handleProfilePhotoClick = () => {
@@ -118,10 +124,10 @@ const BecomeDonor = () => {
                   <input
                     type="file"
                     id="profile-photo"
-                    onChange={filechange}
+                    onChange={(e) => filechange(e, "image")}
                     accept="image/*"
                     ref={fileInputRef}
-                    hidden={!!profilePhoto} // Hide when profilePhoto is set
+                    hidden={!!profilePhoto}
                   />
                   <span>Choose File</span>
                 </div>
@@ -177,8 +183,8 @@ const BecomeDonor = () => {
                 <input
                   type="file"
                   id="medical-certificate"
-                  onChange={handleMedicalCertificateChange}
-                  multiple
+                  onChange={(e) => filechange(e, "certificate")}
+                  multiple={false}
                 />
                 <span>{medicalCertificateName}</span>
               </div>

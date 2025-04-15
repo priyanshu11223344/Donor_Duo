@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import './FindDonor.css';
 import DonorContext from '../../Context/DonorData/DonorContext';
 import { useNavigate } from 'react-router-dom';
+import { Document, Page } from "react-pdf";
 // import customerpng from "./customer1.jpg"
 const FindDonor = () => {
   const { getalldata, data, hosp_id, sethosp_id } = useContext(DonorContext);
+  const [certificateUrl, setCertificateUrl] = useState("");
   const [selectedHospital, setSelectedHospital] = useState(null);
   const [searchCity, setSearchCity] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
@@ -15,10 +17,24 @@ const FindDonor = () => {
   }, []);
 
   // Process hospital data
+  // const PdfViewer = ({ fileUrl }) => {
+  //   const [numPages, setNumPages] = useState(null);
+
+  //   return (
+  //     <Document
+  //       file={fileUrl}
+  //       onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+  //     >
+  //       {Array.from(new Array(numPages), (_, index) => (
+  //         <Page key={index + 1} pageNumber={index + 1} />
+  //       ))}
+  //     </Document>
+  //   );
+  // };
   const hospitalMap = {};
   // console.log(data)
   data.forEach((donor) => {
-    const {_id, name, city, patients = [] } = donor;
+    const { _id, name, city, patients = [] } = donor;
     if (!hospitalMap[name]) {
       hospitalMap[name] = {
         _id,
@@ -136,7 +152,7 @@ const FindDonor = () => {
                   <div key={`${patient.name}-${idx}`} className="patientCard">
                     <img
                       // src="./customer1.jpg"
-                      src={patient.image ? patient.image:"./customer1.jpg"}
+                      src={patient.image ? patient.image : "./customer1.jpg"}
                       alt={patient.name}
                       className="patientProfilePhoto"
                     />
@@ -147,6 +163,19 @@ const FindDonor = () => {
                       <p className="patientStatus available">Available Now</p>
                       <p className="patientDetail">City:{patient.city}</p>
                       <p className="patientDetail">BloodGroup:{patient.bloodGroup}</p>
+                      <p className='patientDetail'>
+                        Report:{" "}
+                        {patient.certificate && (
+                          <a
+                            href={patient.certificate}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ color: "#007bff", textDecoration: "underline" }}
+                          >
+                            📄 View Report
+                          </a>
+                        )}
+                      </p>
                     </div>
                     <button className="contactButton">Request Help</button>
                   </div>
