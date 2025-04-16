@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import './FindDonor.css';
 import DonorContext from '../../Context/DonorData/DonorContext';
 import { useNavigate } from 'react-router-dom';
-// import { Document, Page } from "react-pdf";
+
 import { FaFilePdf } from 'react-icons/fa'; // PDF file icon
 
 // import customerpng from "./customer1.jpg"
 const FindDonor = () => {
-  const { getalldata, data, hosp_id, sethosp_id } = useContext(DonorContext);
+  const { getalldata, data, hosp_id, sethosp_id,selectdonor } = useContext(DonorContext);
   const [certificateUrl, setCertificateUrl] = useState("");
   const [selectedHospital, setSelectedHospital] = useState(null);
   const [searchCity, setSearchCity] = useState('');
@@ -17,7 +17,8 @@ const FindDonor = () => {
   useEffect(() => {
     getalldata();
   }, []);
-
+  const email=localStorage.getItem("email");
+  console.log(email);
   // Process hospital data
   // const PdfViewer = ({ fileUrl }) => {
   //   const [numPages, setNumPages] = useState(null);
@@ -63,6 +64,9 @@ const FindDonor = () => {
   //  sethosp_id(id)
   //  console.log(hosp_id)
   // }
+  const handleclick=async()=>{
+        selectdonor(email);
+  }
   return (
     <div className="findDonorContainer">
       <div className="blur-effect"></div>
@@ -179,7 +183,7 @@ const FindDonor = () => {
                         )}
                       </p>
                     </div>
-                    <button className="contactButton">Request Help</button>
+                    <button className="contactButton" onClick={handleclick}>Request Help</button>
                   </div>
                 ))
               ) : (
