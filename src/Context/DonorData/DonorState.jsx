@@ -42,7 +42,7 @@ const DonorState = (props) => {
             });
         
             const json = await response.json();
-            console.log(json);
+            // console.log(json);
     }
     const addhospital=async(name,city)=>{
         const url=`${host}/api/donor/newhosp`
@@ -53,17 +53,37 @@ const DonorState = (props) => {
             },
             body:JSON.stringify({name,city})
         });
+        if (response.status !== 200) {
+            alert("Failed to add hospital. Please try again.");
+            return;
+        }
         const json=await response.json();
-        console.log(json);
-        console.log(name,city)
+        // console.log(json);
+        // console.log(name,city)
         // setdata([...data,json])
+    }
+    const selectdonor=async(email)=>{
+        const url=`${host}/api/donor/selectdonor`
+        const response=await fetch (url,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+
+            },
+            body:JSON.stringify({email})
+        });
+        if(response.status==200){
+            alert("An email has been sent to your mail id please check it");
+        }
+        const json=await response.json();
+       
     }
     
    
     
     
   return (
-    <DonorContext.Provider value={{getalldata,data,hosp_id,sethosp_id,addpatient,addhospital}}>
+    <DonorContext.Provider value={{getalldata,data,hosp_id,sethosp_id,addpatient,addhospital,selectdonor}}>
         {props.children}
     </DonorContext.Provider>
   )
