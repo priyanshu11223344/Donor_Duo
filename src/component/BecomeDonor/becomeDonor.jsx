@@ -22,7 +22,7 @@ const BecomeDonor = () => {
       return;
     }
     addpatient(data.name, data.image, data.age, data.bloodGroup, data.city, data.certificate, data.description, data.hospital_id)
-    alert(`Successfully entry created, move to the ${hosp_id}`);
+    alert(`Successfully entry created, check in the respective hospital`);
 
 
   }
