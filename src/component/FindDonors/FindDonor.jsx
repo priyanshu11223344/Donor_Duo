@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import './FindDonor.css';
 import DonorContext from '../../Context/DonorData/DonorContext';
 import { useNavigate } from 'react-router-dom';
-import { Document, Page } from "react-pdf";
+// import { Document, Page } from "react-pdf";
 import { FaFilePdf } from 'react-icons/fa'; // PDF file icon
 
 // import customerpng from "./customer1.jpg"
