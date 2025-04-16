@@ -98,7 +98,13 @@ const sendMailToUser = async (email, res) => {
             from: process.env.USER_EMAIL,
             to: email,
             subject: "DonorDue Blood Bank Service",
-            html: `<p>We are pleased to help you. Please send your address and your requested blood unit will be delivered soon. Thank you.</p>`
+            html: `<p>
+            Thank you for reaching out. We are glad to support you with a blood donation. Kindly share your complete address and specify the number of blood units required. Our team will get in touch with you shortly.  
+            <br>For more details contact us on <b>+91 7999312974</b>
+            <br><br>
+            Best regards,<br>
+            <b>[Ruchita Agarwal]</b>
+          </p>`
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
