@@ -72,6 +72,7 @@
   }
   
   .hospitalCardsContainer {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
@@ -84,6 +85,7 @@
     text-align: center;
     cursor: pointer;
     transition: transform 300ms ease-in;
+    position: relative;
   }
   
   .hospitalCard:hover {
@@ -110,9 +112,9 @@
   }
   
   .exploreButton {
-    padding: 0.8rem 1.5rem;
+    padding: 0.6rem 1rem;
     background: var(--blue-gradient);
-    margin-right: 5px;
+    margin-right: 15px;
     color: #fff;
     border: none;
     border-radius: 40px;
@@ -121,7 +123,18 @@
     margin-top: 1rem;
     transition: transform 300ms ease-in;
   }
-  
+  .infoIcon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    border-radius: 50%;
+    padding: 2px;
+    z-index: 2;
+  }
+  .infoIcon:hover{
+    color: #ff3e3e;
+  }
   .exploreButton:hover {
     transform: scale(1.05);
   }
@@ -155,8 +168,8 @@
     }
   }
   .patientProfilePhoto{
-    height: 100px;
-    width:100px
+    height: 150px;
+    width:150px
   }
   /* Add these styles to your existing FindDonor.css */
 
@@ -201,9 +214,10 @@
 }
 
 .patientDetail {
-  font-size: 16px;
+  font-size: 17px;
   margin: 0.25rem 0;
   color: rgba(255, 255, 255, 0.78);
+  font-weight: 400;
 }
 
 .patientStatus {
@@ -254,7 +268,7 @@
   }
   
   .patientProfilePhoto {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
   }
 }

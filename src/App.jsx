@@ -13,6 +13,7 @@ import DonorState from "./Context/DonorData/DonorState";
 import Contact from "./component/Contact/Contact";
 import DashBoard from "./component/DashBoard/DashBoard"
 import RegisterHospital from "./component/RegisterHospital/RegisterHospital"
+import HospitalInfo from "./component/HospitalInfo/HospitalInfo";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/Contact" element={<Contact/>} />
           <Route path="/DashBoard" element={<DashBoard />} />
           <Route path="/RegisterHospital" element={<RegisterHospital />} />
+          <Route path="/HospitalInfo" element={<HospitalInfo />} />
         </Route>
       </Routes>
       <Footer/>

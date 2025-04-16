@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import './FindDonor.css';
 import DonorContext from '../../Context/DonorData/DonorContext';
 import { useNavigate } from 'react-router-dom';
-
+import { IoInformationCircleOutline } from "react-icons/io5";
 import { FaFilePdf } from 'react-icons/fa'; // PDF file icon
 
 // import customerpng from "./customer1.jpg"
@@ -103,11 +103,15 @@ const FindDonor = () => {
               {hospitals.length > 0 ? (
                 hospitals.map(([hospitalName, info]) => (
                   <div key={hospitalName} className="hospitalCard">
+                    
                     <img
                       src={`./hospital1.jpg`}
                       alt={hospitalName}
                       className="hospitalImage"
                     />
+                    <a href="/HospitalInfo" className="infoIcon">
+                      <IoInformationCircleOutline size={25} />
+                    </a>
                     <div className="hospitalInfoContainer">
                       <h4 className="hospitalName">{hospitalName}</h4>
                       <p className="hospitalInfo">City: {info.city}</p>
