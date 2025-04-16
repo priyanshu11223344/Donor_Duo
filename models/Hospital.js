@@ -8,6 +8,33 @@ const HospitalSchema=new Schema({
     city:{
         type:String
     },
+    state:{
+        type:String
+    },
+    country:{
+        type:String
+    },
+    licence_number:{
+        type:String
+    },
+    pincode:{
+        type:String
+    },
+    contact_no:{
+        type:Number
+    },
+    emergency_con:{
+        type:Number
+    },
+    director_name:{
+        type:String
+    },
+    address:{
+        type:String
+    },
+    email:{
+        type:String,
+    },
     totalCand:{
         type:Number,
         default:0
