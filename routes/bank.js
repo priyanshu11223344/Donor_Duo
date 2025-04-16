@@ -47,12 +47,14 @@ router.post("/newdonor", async (req, res) => {
         hospital: hospitalId, // this is a string name
       } = req.body;
   
-      let hospital = await Hospital.findOne({ name: hospitalId, city });
+      //let hospital = await Hospital.findOne({ name: hospitalId, city });
+
+      let hospital = await Hospital.findOne({ _id:hospitalId });
   
-      if (!hospital) {
-        hospital = new Hospital({ name: hospitalId, city, totalCand: 0 });
-        await hospital.save();
-      }
+      // if (!hospital) {
+      //   hospital = new Hospital({ name: hospitalId, city, totalCand: 0 });
+      //   await hospital.save();
+      // }
   
       const donor = new Bank({
         name,
