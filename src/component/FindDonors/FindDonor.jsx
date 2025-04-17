@@ -7,7 +7,7 @@ import { FaFilePdf } from 'react-icons/fa'; // PDF file icon
 
 // import customerpng from "./customer1.jpg"
 const FindDonor = () => {
-  const { getalldata, data, hosp_id, sethosp_id,selectdonor } = useContext(DonorContext);
+  const { getalldata, data, hosp_id, sethosp_id,selectdonor,gethospinfo } = useContext(DonorContext);
   const [certificateUrl, setCertificateUrl] = useState("");
   const [selectedHospital, setSelectedHospital] = useState(null);
   const [searchCity, setSearchCity] = useState('');
@@ -15,25 +15,15 @@ const FindDonor = () => {
   const [showDonors, setShowDonors] = useState(false);
   const navigate = useNavigate()
   useEffect(() => {
-    getalldata();
-  }, []);
-  const email=localStorage.getItem("email");
-  console.log(email);
-  // Process hospital data
-  // const PdfViewer = ({ fileUrl }) => {
-  //   const [numPages, setNumPages] = useState(null);
+    const email = localStorage.getItem("email");
+    if (!email) {
+      navigate('/LogIn');
+    } else {
+      getalldata(); // only call this if email is present
+    }
+  }, [navigate, getalldata]);
 
-  //   return (
-  //     <Document
-  //       file={fileUrl}
-  //       onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-  //     >
-  //       {Array.from(new Array(numPages), (_, index) => (
-  //         <Page key={index + 1} pageNumber={index + 1} />
-  //       ))}
-  //     </Document>
-  //   );
-  // };
+  const email = localStorage.getItem("email");
   const hospitalMap = {};
   // console.log(data)
   data.forEach((donor) => {
@@ -67,6 +57,7 @@ const FindDonor = () => {
   const handleclick=async()=>{
         selectdonor(email);
   }
+ 
   return (
     <div className="findDonorContainer">
       <div className="blur-effect"></div>
@@ -109,9 +100,14 @@ const FindDonor = () => {
                       alt={hospitalName}
                       className="hospitalImage"
                     />
-                    <a href="/HospitalInfo" className="infoIcon">
-                      <IoInformationCircleOutline size={25} />
-                    </a>
+                    {/* <a href="/HospitalInfo" className="infoIcon"  > */}
+                      <IoInformationCircleOutline size={25} className="infoIcon" onClick={() => {
+                           sethosp_id(info._id); // for global use if needed
+                          // console.log(hosp_id)
+                          // gethospinfo(info._id)
+                          navigate('/HospitalInfo');
+                        }} />
+                    {/* </a> */}
                     <div className="hospitalInfoContainer">
                       <h4 className="hospitalName">{hospitalName}</h4>
                       <p className="hospitalInfo">City: {info.city}</p>

@@ -6,7 +6,14 @@ import DonorContext from '../../Context/DonorData/DonorContext';
 const RegisterHospital = () => {
   const navigate = useNavigate();
   const {addhospital}=useContext(DonorContext)
-  const[hospdata,sethospdata]=useState({name:"",city:""});
+  const[hospdata,sethospdata]=useState({name:"",city:"",state:"",pincode:"",country:"",email:"",license_number:"",contact_no:"",emergency_con:"",director_name:"",address:""});
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(!hospdata.name || !hospdata.city){
+      alert("Please fill all the details")
+    }
+    addhospital(hospdata.name,hospdata.city,hospdata.state,hospdata.pincode,hospdata.country,hospdata.email,hospdata.license_number,hospdata.contact_no,hospdata.emergency_con,hospdata.director_name,hospdata.address)
+  };
   const [formData, setFormData] = useState({
     hospitalName: '',
     address: '',
@@ -47,13 +54,7 @@ const RegisterHospital = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if(!hospdata.name || !hospdata.city){
-      alert("Please fill all the details")
-    }
-    addhospital(hospdata.name,hospdata.city)
-  };
+  
 
   return (
     <div className="hospital-registration-container">
@@ -80,7 +81,7 @@ const RegisterHospital = () => {
                 <label>Blood Bank License Number</label>
                 <input
                   type="text"
-                  name="bloodBankLicense"
+                  name="license_number"
                  
                   onChange={handleChange}
                   placeholder="Enter license number"
@@ -151,7 +152,7 @@ const RegisterHospital = () => {
                 <label>Contact Number</label>
                 <input
                   type="tel"
-                  name="contactNumber"
+                  name="contact_no"
             
                   onChange={handleChange}
                   placeholder="Enter phone number"
@@ -161,7 +162,7 @@ const RegisterHospital = () => {
                 <label>Emergency Contact</label>
                 <input
                   type="tel"
-                  name="emergencyContact"
+                  name="emergency_con"
                  
                   onChange={handleChange}
                   placeholder="Enter emergency contact"
@@ -180,7 +181,7 @@ const RegisterHospital = () => {
               />
             </div>
 
-            <div className="form-row">
+            {/* <div className="form-row">
               <div className="form-group">
                 <label>Password</label>
                 <input
@@ -201,7 +202,7 @@ const RegisterHospital = () => {
                   placeholder="Confirm password"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="form-section">
@@ -210,7 +211,7 @@ const RegisterHospital = () => {
               <label>Director/Head Name</label>
               <input
                 type="text"
-                name="directorName"
+                name="director_name"
                 
                 onChange={handleChange}
                 placeholder="Enter director's name"
