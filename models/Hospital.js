@@ -21,10 +21,10 @@ const HospitalSchema=new Schema({
         type:String
     },
     contact_no:{
-        type:Number
+        type:String
     },
     emergency_con:{
-        type:Number
+        type:String
     },
     director_name:{
         type:String
