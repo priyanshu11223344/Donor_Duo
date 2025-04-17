@@ -21,12 +21,12 @@ router.get("/hospitals", async (req, res) => {
 
 router.post("/newhosp",async(req,res)=>{
     try{
-        const {name ,city}=req.body;
+        const {name ,city,state,pincode,country,email,licence_number,contact_no,emergency_con,director_name,address}=req.body;
         const a =  await Hospital.findOne({name})
         if(a){
           return res.status(400).json({ message: "Hospital with this name already exists." });
         }
-        const hosp=new Hospital({name,city})
+        const hosp=new Hospital({name ,city,state,pincode,country,email,licence_number,contact_no,emergency_con,director_name,address})
         hosp.save();
         res.status(200).json(hosp);
     }
@@ -47,7 +47,9 @@ router.post("/newdonor", async (req, res) => {
         hospital: hospitalId, // this is a string name
       } = req.body;
   
-      let hospital = await Hospital.findOne({ _id: hospitalId });
+      //let hospital = await Hospital.findOne({ name: hospitalId, city });
+
+      let hospital = await Hospital.findOne({ _id:hospitalId });
   
       // if (!hospital) {
       //   hospital = new Hospital({ name: hospitalId, city, totalCand: 0 });
