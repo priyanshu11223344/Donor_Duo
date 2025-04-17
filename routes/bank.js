@@ -13,7 +13,8 @@ router.get("/hospitals", async (req, res) => {
     const hospitals = await Hospital.find({})
       .populate("patients"); // This will populate full patient documents instead of just ObjectIds
     res.status(200).json(hospitals);
-  } catch (error) {
+  } 
+  catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
@@ -81,7 +82,24 @@ router.post("/newdonor", async (req, res) => {
     }
   });
 
+// POST route to get hospital info by ID
+router.post('/getHospitalInfo', async (req, res) => {
+  const { hospitalId } = req.body;
   
+  try {
+    const hospital = await Hospital.findById(hospitalId);
+
+    if (!hospital) {
+      return res.status(404).json({ message: 'Hospital not found' });
+    }
+
+    res.json(hospital);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 
 // Nodemailer transporter setup
 const transporter = nodemailer.createTransport({
