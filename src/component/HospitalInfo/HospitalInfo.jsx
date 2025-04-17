@@ -8,12 +8,16 @@ import {
   FaFlask, FaXRay, FaHeartbeat, FaStethoscope
 } from 'react-icons/fa';
 import { GiHospitalCross } from 'react-icons/gi';
-
+import { useContext } from 'react';
+import DonorContext from '../../Context/DonorData/DonorContext';
 const HospitalInfo = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+  const {hosp_id, gethospinfo, hospitalDetails } = useContext(DonorContext);
+  // console.log(hospitalDetails)
+  const data=hospitalDetails
+  console.log(data);
   const hospital = {
     _id: id,
     name: "City General Hospital",
@@ -66,7 +70,11 @@ const HospitalInfo = () => {
     insuranceProviders: ["Aetna", "Blue Cross", "Medicare", "UnitedHealth"],
     languagesSpoken: ["English", "Spanish", "Mandarin", "French"]
   };
-
+  useEffect(() => {
+    if (hosp_id) {
+      gethospinfo(hosp_id);
+    }
+  }, []);
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => 
@@ -109,7 +117,7 @@ const HospitalInfo = () => {
 
         {/* About Section */}
         <div className="detailSection aboutSection">
-          <h2><GiHospitalCross /> About {hospital.name}</h2>
+          <h2><GiHospitalCross /> About {data.name}</h2>
           <p>{hospital.about}</p>
           <div className="badgeContainer">
             <span className="accreditationBadge">{hospital.accreditation}</span>
@@ -122,16 +130,16 @@ const HospitalInfo = () => {
           <h2><FaStethoscope /> Key Information</h2>
           <div className="infoGrid">
             <div className="infoItem"><FaMapMarkerAlt className="InfoIconEdit" />
-              <div><strong>Address</strong><p>{hospital.address}, {hospital.city}, {hospital.state} {hospital.pincode}, {hospital.country}</p></div>
+              <div><strong>Address</strong><p>{data.address}, {data.city}, {data.state} {data.pincode}, {data.country}</p></div>
             </div>
             <div className="infoItem"><FaPhone className="InfoIconEdit" />
-              <div><strong>Phone</strong><p>{hospital.phone}</p></div>
+              <div><strong>Phone</strong><p>{data.contact_no}</p></div>
             </div>
             <div className="infoItem"><FaAmbulance className="InfoIconEdit" />
-              <div><strong>Emergency</strong><p>{hospital.emergencyPhone}</p></div>
+              <div><strong>Emergency</strong><p>{data.emergency_con}</p></div>
             </div>
             <div className="infoItem"><FaEnvelope className="InfoIconEdit" />
-              <div><strong>Email</strong><p>{hospital.email}</p></div>
+              <div><strong>Email</strong><p>{data.email}</p></div>
             </div>
             <div className="infoItem"><FaGlobe className="InfoIconEdit" />
               <div><strong>Website</strong>
@@ -227,7 +235,7 @@ const HospitalInfo = () => {
           <div className="personnelGrid">
             {hospital.keyPersonnel.map((person, index) => (
               <div key={index} className="personnelCard">
-                <h3>{person.name}</h3>
+                <h3>{data.director_name}</h3>
                 <p>{person.position}</p>
                 {person.specialty && <p className="specialty">{person.specialty}</p>}
               </div>
