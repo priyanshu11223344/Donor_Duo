@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const connectToMongo = () => {
-    mongoose.connect("mongodb://127.0.0.1:27017/bloodbank")
+    mongoose.connect("mongodb+srv://panchalpriyanshu124_db_user:40YXQHkmxeu7pK91@cluster0.qdfwevq.mongodb.net/")
     .then(() => {
         console.log('Mongoose connected');
     })
