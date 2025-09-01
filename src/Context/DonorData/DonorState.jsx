@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import DonorContext from './DonorContext';
+import { toast } from 'react-toastify';
 const DonorState = (props) => {
     const host="http://localhost:5000";
     const DonorInitial=[];
@@ -57,8 +58,11 @@ const DonorState = (props) => {
             body:JSON.stringify({name,city,state,pincode,country,email,license_number,contact_no,emergency_con,director_name,address})
         });
         if (response.status !== 200) {
-            alert("Failed to add hospital. Please try again.");
+            toast.error("Failed to add hospital. Please try again.");
             return;
+        }
+        if(response.ok){
+            toast.success("Hospital Registered Successfully");
         }
         const json=await response.json();
          console.log(json);

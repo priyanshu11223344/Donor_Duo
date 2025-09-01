@@ -3,6 +3,7 @@ import {FaUserAlt  } from "react-icons/fa";
 import './Verify.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 const Verify = () => {
   const [otp, setOtp] = useState('');
     const userId = localStorage.getItem('userId');
@@ -24,9 +25,9 @@ const Verify = () => {
         if (response.ok) {
             navigate("/FindDonor");
             localStorage.removeItem('userId');
-            alert("OTP verified successfully");
+            toast.success("OTP verified successfully");
         } else {
-            alert("Invalid OTP");
+            toast.error("Invalid OTP");
         }
     };
   const onChange = (e) => {

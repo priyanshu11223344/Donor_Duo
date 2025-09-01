@@ -5,6 +5,7 @@ import { FaGoogle, FaFacebookF } from "react-icons/fa";
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 const Login = () => {
   const [cred,setCred]=useState({email:"",password:""})
     const navigate=useNavigate();
@@ -25,10 +26,10 @@ const Login = () => {
             console.log(cred.email);
         navigate("/FindDonor")
         console.log(data.authtoken)
-        alert("Logged in","success");
+        toast.success("Logged in","success");
         }
         else{
-            alert("Invalid credentials","danger");
+            toast.error("Invalid credentials","danger");
         }
         
 
